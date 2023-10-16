@@ -1,0 +1,4 @@
+enum WidgetType {
+  none,
+  sliver,
+}
