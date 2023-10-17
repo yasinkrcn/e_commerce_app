@@ -4,34 +4,31 @@ import 'package:e_commerce_app/feature/favorites/controller/favorite_controller.
 import 'package:e_commerce_app/feature/home/controller/home_controller.dart';
 import 'package:e_commerce_app/feature/home/view/widgets/product_item.dart';
 
-class ProductsTabbar extends StatefulWidget {
-  final String selectedCategory;
-  const ProductsTabbar({
-    super.key,
-    required this.selectedCategory,
-  });
+class FavoritesPage extends StatefulWidget {
+  const FavoritesPage({super.key});
 
   @override
-  State<ProductsTabbar> createState() => _ProductsTabbarState();
+  State<FavoritesPage> createState() => _FavoritesPageState();
 }
 
-class _ProductsTabbarState extends State<ProductsTabbar> {
+class _FavoritesPageState extends State<FavoritesPage> {
   @override
   void initState() {
     super.initState();
 
-    sl<HomeController>().fetchProductFromSelectedCategory(widget.selectedCategory);
+    sl<FavoriteController>().fetchProducts();
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, HomeController controller, child) {
-        return AppWidgetBuilderByState.none(
+      builder: (context, FavoriteController controller, child) {
+        return AppScaffold(
+            body: AppWidgetBuilderByState.none(
           response: controller.products,
-          builder: (product) {
+          builder: (products) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16) + const EdgeInsets.only(top: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -39,18 +36,13 @@ class _ProductsTabbarState extends State<ProductsTabbar> {
                   crossAxisSpacing: 16,
                   childAspectRatio: .6,
                 ),
-                itemCount: product.length,
+                itemCount: products.length,
                 itemBuilder: (context, index) {
-                  ProductDto res = product[index];
-
+                  var res = products[index];
                   return ProductItem(
-                    onTap: () => controller.goSelectedProduct(context, product: res),
-                    likeOnTap: () {
-                      sl<FavoriteController>().saveProductToLocal("${res.id}");
-
-                      setState(() {});
-                    },
-                    isFavorite: sl<FavoriteController>().readProductList.any((element) => res.id.toString() == element),
+                    onTap: () => sl<HomeController>().goSelectedProduct(context, product: res),
+                    // likeOnTap: () => sl<FavoriteController>().saveProductToLocal("${res.id}"),
+                    isFavorite: true,
                     productImage: res.image,
                     productName: res.title,
                     productPrice: res.price,
@@ -61,7 +53,7 @@ class _ProductsTabbarState extends State<ProductsTabbar> {
               ),
             );
           },
-        );
+        ));
       },
     );
   }

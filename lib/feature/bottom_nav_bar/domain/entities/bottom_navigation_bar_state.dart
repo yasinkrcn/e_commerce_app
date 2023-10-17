@@ -3,7 +3,7 @@
 import 'package:e_commerce_app/core/_core_exports.dart';
 import 'package:e_commerce_app/feature/basket/view/page/basket_page.dart';
 import 'package:e_commerce_app/feature/home/view/page/home_page.dart';
-import 'package:e_commerce_app/feature/like/view/page/like_page.dart';
+import 'package:e_commerce_app/feature/favorites/view/page/favorites_page.dart';
 
 enum BottomNavigationBarState { HOME, HEART, BASKET }
 
@@ -71,7 +71,7 @@ extension BottomNavigationBarStateExtension on BottomNavigationBarState {
       case BottomNavigationBarState.HOME:
         return "Home";
       case BottomNavigationBarState.HEART:
-        return "Like";
+        return "Favorites";
       case BottomNavigationBarState.BASKET:
         return "Basket";
     }
@@ -82,7 +82,7 @@ extension BottomNavigationBarStateExtension on BottomNavigationBarState {
       case BottomNavigationBarState.HOME:
         return const HomePage();
       case BottomNavigationBarState.HEART:
-        return const LikePage();
+        return const FavoritesPage();
       case BottomNavigationBarState.BASKET:
         return const BasketPage();
     }

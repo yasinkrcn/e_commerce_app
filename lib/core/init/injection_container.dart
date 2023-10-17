@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:e_commerce_app/feature/bottom_nav_bar/view_model/bottom_navigation_bar_view_model.dart';
+import 'package:e_commerce_app/feature/favorites/controller/favorite_controller.dart';
+import 'package:e_commerce_app/feature/favorites/data/service/favorite_service.dart';
 import 'package:e_commerce_app/feature/home/controller/home_controller.dart';
 import 'package:e_commerce_app/feature/home/data/service/home_service.dart';
 import 'package:get_it/get_it.dart';
@@ -26,29 +28,10 @@ Future<void> init() async {
   sl.registerLazySingleton(() => HomeService(sl()));
   sl.registerLazySingleton<HomeController>(() => HomeController(sl()));
 
-  // sl.registerLazySingleton<Account>(() => Account(sl(), sl()));
-
-  // //? Number Verify
-
-  // sl.registerLazySingleton<NumberVerifyController>(() => NumberVerifyController(sl()));
-
-  // //? Register
-  // sl.registerLazySingleton(() => AuthService(sl()));
-  // sl.registerLazySingleton<RegisterController>(() => RegisterController(sl()));
-  // sl.registerLazySingleton<LoginController>(() => LoginController(sl()));
-
-  // sl.registerLazySingleton(() => ConstantService(sl()));
-  // sl.registerLazySingleton<ConstantController>(() => ConstantController(sl()));
-
-  // //? BottomNavBar
-  // sl.registerLazySingleton<BottomNavBarController>(() => BottomNavBarController());
-
-  // //? Home
-  // sl.registerLazySingleton<HomeController>(() => HomeController());
-
-  // //? Search
-  // sl.registerLazySingleton<SearchingController>(() => SearchingController());
-
-  // //? Profile
-  // sl.registerLazySingleton<ProfileController>(() => ProfileController());
+  // //? Favorites
+  sl.registerLazySingleton(() => FavoriteService(sl()));
+  sl.registerLazySingleton<FavoriteController>(() => FavoriteController(
+        sl(),
+        sl(),
+      ));
 }

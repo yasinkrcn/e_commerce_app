@@ -2,7 +2,7 @@
 
 enum SecureStorageKeys {
   EXAMPLE,
-  CACHE_USER_INFO,
+  FAVORITES_INFO,
 }
 
 extension SecureStorageKeysExtension on SecureStorageKeys {
@@ -10,8 +10,8 @@ extension SecureStorageKeysExtension on SecureStorageKeys {
     switch (this) {
       case SecureStorageKeys.EXAMPLE:
         return "EXAMPLE";
-      case SecureStorageKeys.CACHE_USER_INFO:
-        return "CACHE_USER_INFO";
+      case SecureStorageKeys.FAVORITES_INFO:
+        return "FAVORITES_INFO";
     }
   }
 }
