@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/core/_core_exports.dart';
+import 'package:e_commerce_app/feature/bottom_nav_bar/view/pages/bottom_navigation_page.dart';
 import 'package:e_commerce_app/feature/home/view/page/home_page.dart';
 import '/core/init/injection_container.dart' as locator;
 
@@ -24,7 +25,7 @@ class MainApp extends StatelessWidget {
       theme: AppTheme.themeData,
       navigatorKey: GlobalContextKey.instance.globalKey,
       onGenerateRoute: generateRoute,
-      home: HomePage(),
+      home: BottomNavigationPage(),
     );
   }
 }

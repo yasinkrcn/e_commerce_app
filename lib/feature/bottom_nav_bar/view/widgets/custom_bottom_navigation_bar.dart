@@ -1,0 +1,38 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
+import 'package:e_commerce_app/feature/bottom_nav_bar/_bottom_navigation_bar_exports.dart';
+
+import '../../../../core/_core_exports.dart';
+
+class CustomBottomNavigationBar extends StatelessWidget {
+  CustomBottomNavigationBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (BuildContext context, BottomNavBarController provider, Widget? widget) {
+        return AnimatedContainer(
+          height: provider.isBottomBarVisible ? 70.h : 0,
+          width: ScreenSize().getWidth(1),
+          curve: Curves.linear,
+          duration: const Duration(
+            milliseconds: 250,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              for (BottomNavigationBarState state in BottomNavigationBarState.values)
+                CustomBottomNavigationBarItem(
+                  onTap: () {
+                    provider.routePage(state);
+                  },
+                  isActive: provider.selectedBarState == state,
+                  barState: state,
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}

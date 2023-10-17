@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:e_commerce_app/feature/bottom_nav_bar/view_model/bottom_navigation_bar_view_model.dart';
 import 'package:e_commerce_app/feature/home/controller/home_controller.dart';
 import 'package:e_commerce_app/feature/home/data/service/home_service.dart';
 import 'package:get_it/get_it.dart';
@@ -17,6 +18,9 @@ Future<void> init() async {
   sl.registerLazySingleton<SecureStorageManager>(() => secureStorageManager);
 
   sl.registerLazySingleton<BaseController>(() => BaseController());
+
+  // //? BottomNavBar
+  sl.registerLazySingleton<BottomNavBarController>(() => BottomNavBarController());
 
   // //? Home
   sl.registerLazySingleton(() => HomeService(sl()));

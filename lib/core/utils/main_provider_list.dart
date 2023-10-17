@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/feature/bottom_nav_bar/view_model/bottom_navigation_bar_view_model.dart';
 import 'package:e_commerce_app/feature/home/controller/home_controller.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:e_commerce_app/core/_core_exports.dart';
@@ -7,6 +8,7 @@ class MainProviderList {
   static List<SingleChildWidget> mainProviderlist = [
     ChangeNotifierProvider<BaseController>(create: (_) => sl<BaseController>()),
     ChangeNotifierProvider<HomeController>(create: (_) => sl<HomeController>()),
+    ChangeNotifierProvider<BottomNavBarController>(create: (_) => sl<BottomNavBarController>()),
   ];
 
   /// This method returns the provider list that should stand up at the beginning of the application.
