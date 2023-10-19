@@ -1,3 +1,5 @@
+import 'package:e_commerce_app/feature/auth/controller/auth_controller.dart';
+import 'package:e_commerce_app/feature/basket/controller/basket_controller.dart';
 import 'package:e_commerce_app/feature/bottom_nav_bar/view_model/bottom_navigation_bar_view_model.dart';
 import 'package:e_commerce_app/feature/favorites/controller/favorite_controller.dart';
 import 'package:e_commerce_app/feature/home/controller/home_controller.dart';
@@ -11,6 +13,8 @@ class MainProviderList {
     ChangeNotifierProvider<HomeController>(create: (_) => sl<HomeController>()),
     ChangeNotifierProvider<BottomNavBarController>(create: (_) => sl<BottomNavBarController>()),
     ChangeNotifierProvider<FavoriteController>(create: (_) => sl<FavoriteController>()),
+    ChangeNotifierProvider<AuthController>(create: (_) => sl<AuthController>()),
+    ChangeNotifierProvider<BasketController>(create: (_) => sl<BasketController>()),
   ];
 
   /// This method returns the provider list that should stand up at the beginning of the application.

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:e_commerce_app/core/_core_exports.dart';
 import 'package:e_commerce_app/feature/favorites/data/service/favorite_service.dart';
 
@@ -7,12 +5,19 @@ class FavoriteController extends BaseController {
   final SecureStorageManager _secureStorageManager;
   final FavoriteService _apiService;
 
-  FavoriteController(this._secureStorageManager, this._apiService) {
-    readProductToLocal();
+  FavoriteController(this._secureStorageManager, this._apiService);
+
+  Future<void> productLikeFunc(String productId) async {
+    if (!saveProductList.any((element) => element == productId)) {
+      await saveProductToLocal(productId);
+    } else {
+      await deleteProductToLocal(productId);
+    }
+
+    refreshView();
   }
 
   List<String> saveProductList = [];
-  List<String> readProductList = [];
 
   Future<void> saveProductToLocal(String productId) async {
     try {
@@ -27,9 +32,7 @@ class FavoriteController extends BaseController {
 
         await readProductToLocal();
 
-        showCustomMessenger(CustomMessengerState.SUCCESS, "Favorilere eklendi");
-      } else {
-        showCustomMessenger(CustomMessengerState.WARNING, "Ürün zaten favorilerde");
+        showCustomMessenger(CustomMessengerState.SUCCESS, "Added to favorites");
       }
     } catch (_) {
       showCustomMessenger(CustomMessengerState.WARNING, "Favorilere eklenirken bir sorun oluştu");
@@ -41,16 +44,26 @@ class FavoriteController extends BaseController {
       SecureStorageKeys.FAVORITES_INFO,
     );
     if (res != null) {
-      readProductList = res.split(';'); // Ayraçı kullanarak listeyi böler
-      saveProductList.clear();
-      saveProductList = readProductList;
-      return readProductList;
+      saveProductList = res.split(';'); // Ayraçı kullanarak listeyi bölüyoruz
+      return saveProductList;
     } else {
       return [];
     }
   }
 
-  Future<void> deleteProductToLocal() async {}
+  Future<void> deleteProductToLocal(String productId) async {
+    if (saveProductList.any((element) => element == productId)) {
+      saveProductList.remove(productId);
+
+      final listAsString = saveProductList.join(';');
+
+      await _secureStorageManager.write(SecureStorageKeys.FAVORITES_INFO, listAsString);
+
+      await readProductToLocal();
+
+      showCustomMessenger(CustomMessengerState.WARNING, "Removed from favorites");
+    }
+  }
 
   // Products
 
@@ -63,7 +76,7 @@ class FavoriteController extends BaseController {
 
     productRes.clear();
     await readProductToLocal();
-    for (var element in readProductList) {
+    for (var element in saveProductList) {
       await getProducts(element);
     }
     refreshView();

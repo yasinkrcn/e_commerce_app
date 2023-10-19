@@ -40,14 +40,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 itemBuilder: (context, index) {
                   var res = products[index];
                   return ProductItem(
+                    product: res,
                     onTap: () => sl<HomeController>().goSelectedProduct(context, product: res),
-                    // likeOnTap: () => sl<FavoriteController>().saveProductToLocal("${res.id}"),
-                    isFavorite: true,
-                    productImage: res.image,
-                    productName: res.title,
-                    productPrice: res.price,
-                    rating: res.rating.rate!,
-                    ratingCount: res.rating.count!,
                   );
                 },
               ),

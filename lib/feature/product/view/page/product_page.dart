@@ -1,10 +1,20 @@
 import 'package:e_commerce_app/core/_core_exports.dart';
+import 'package:e_commerce_app/feature/basket/controller/basket_controller.dart';
 import 'package:e_commerce_app/feature/product/view/widgets/comments_star_widget.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   final ProductDto product;
-  const ProductPage({super.key, required this.product});
 
+  const ProductPage({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -17,21 +27,21 @@ class ProductPage extends StatelessWidget {
                 child: Column(
                   children: [
                     16.height,
-                    AppImage.custom(imageUrl: product.image),
+                    AppImage.custom(imageUrl: widget.product.image),
                     16.height,
                     AppText(
-                      product.title,
+                      widget.product.title,
                       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     ),
                     16.height,
                     Row(
                       children: [
-                        CommentsStarWidget(initialRating: product.rating.rate!),
+                        CommentsStarWidget(initialRating: widget.product.rating.rate!),
                         12.widthR,
-                        AppText(product.rating.rate.toString()),
+                        AppText(widget.product.rating.rate.toString()),
                         12.widthR,
                         AppText(
-                          "${product.rating.count} reviews",
+                          "${widget.product.rating.count} reviews",
                           style: TextStyle(
                             color: Colors.orange.shade800,
                           ),
@@ -39,7 +49,7 @@ class ProductPage extends StatelessWidget {
                       ],
                     ),
                     16.height,
-                    AppText(product.description),
+                    AppText(widget.product.description),
                     16.height,
                   ],
                 ),
@@ -59,21 +69,30 @@ class ProductPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: AppText(
-                      "\$${product.price}",
+                      "\$${widget.product.price}",
                       style: const TextStyle(color: AppColors.white, fontWeight: FontWeight.w600, fontSize: 24),
                     ),
                   ),
                 ),
                 16.widthR,
-                Container(
-                  decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(8)),
-                  child: const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Icon(
-                      Icons.add_shopping_cart_rounded,
-                      color: Colors.white,
-                    ),
-                  ),
+                Consumer(
+                  builder: (context, BasketController basketController, child) {
+                    return InkWell(
+                      onTap: () {
+                        basketController.addBasketProduct(widget.product);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(8)),
+                        child: const Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Icon(
+                            Icons.add_shopping_cart_rounded,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

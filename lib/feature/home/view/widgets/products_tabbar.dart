@@ -44,18 +44,8 @@ class _ProductsTabbarState extends State<ProductsTabbar> {
                   ProductDto res = product[index];
 
                   return ProductItem(
+                    product: res,
                     onTap: () => controller.goSelectedProduct(context, product: res),
-                    likeOnTap: () {
-                      sl<FavoriteController>().saveProductToLocal("${res.id}");
-
-                      setState(() {});
-                    },
-                    isFavorite: sl<FavoriteController>().readProductList.any((element) => res.id.toString() == element),
-                    productImage: res.image,
-                    productName: res.title,
-                    productPrice: res.price,
-                    rating: res.rating.rate!,
-                    ratingCount: res.rating.count!,
                   );
                 },
               ),

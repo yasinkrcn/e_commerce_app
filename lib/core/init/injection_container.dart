@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:e_commerce_app/feature/auth/controller/auth_controller.dart';
+import 'package:e_commerce_app/feature/basket/controller/basket_controller.dart';
 import 'package:e_commerce_app/feature/bottom_nav_bar/view_model/bottom_navigation_bar_view_model.dart';
 import 'package:e_commerce_app/feature/favorites/controller/favorite_controller.dart';
 import 'package:e_commerce_app/feature/favorites/data/service/favorite_service.dart';
@@ -24,6 +26,9 @@ Future<void> init() async {
   // //? BottomNavBar
   sl.registerLazySingleton<BottomNavBarController>(() => BottomNavBarController());
 
+  // //? Auth
+  sl.registerLazySingleton<AuthController>(() => AuthController());
+
   // //? Home
   sl.registerLazySingleton(() => HomeService(sl()));
   sl.registerLazySingleton<HomeController>(() => HomeController(sl()));
@@ -34,4 +39,8 @@ Future<void> init() async {
         sl(),
         sl(),
       ));
+
+  // //? Basket
+
+  sl.registerLazySingleton<BasketController>(() => BasketController());
 }
