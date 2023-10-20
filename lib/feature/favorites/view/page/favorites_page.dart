@@ -24,30 +24,33 @@ class _FavoritesPageState extends State<FavoritesPage> {
     return Consumer(
       builder: (context, FavoriteController controller, child) {
         return AppScaffold(
+            appBar: AppBar(
+              title: AppText("My Favorites"),
+              backgroundColor: AppColors.white,
+              centerTitle: true,
+            ),
             body: AppWidgetBuilderByState.none(
-          response: controller.products,
-          builder: (products) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
-                  childAspectRatio: .6,
-                ),
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  var res = products[index];
-                  return ProductItem(
-                    product: res,
-                    onTap: () => sl<HomeController>().goSelectedProduct(context, product: res),
-                  );
-                },
-              ),
-            );
-          },
-        ));
+              response: controller.products,
+              builder: (products) {
+                return GridView.builder(
+                  padding: const EdgeInsets.all(16),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                    childAspectRatio: .6,
+                  ),
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    var res = products[index];
+                    return ProductItem(
+                      product: res,
+                      onTap: () => sl<HomeController>().goSelectedProduct(context, product: res),
+                    );
+                  },
+                );
+              },
+            ));
       },
     );
   }

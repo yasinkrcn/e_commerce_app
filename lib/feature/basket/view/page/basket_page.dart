@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/core/_core_exports.dart';
 import 'package:e_commerce_app/feature/basket/controller/basket_controller.dart';
 import 'package:e_commerce_app/feature/basket/view/widgets/basket_card.dart';
+import 'package:lottie/lottie.dart';
 
 class BasketPage extends StatelessWidget {
   const BasketPage({super.key});
@@ -15,8 +16,15 @@ class BasketPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: controller.basketList.isEmpty
-                      ? Center(
-                          child: AppText("Sepetinizde ürün bulunmamaktadır"),
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Lottie.asset(AssetPaths().emptyBasketJSON),
+                            AppText(
+                              "There are no items in your basket",
+                              style: TextStyle(fontSize: 20, color: Colors.grey.shade700),
+                            ),
+                          ],
                         )
                       : ListView.builder(
                           itemCount: controller.basketList.length,

@@ -17,4 +17,8 @@ class AssetPaths {
   String get homeSVG => _toSVG("home");
   String get heartSVG => _toSVG("heart");
   String get basketSVG => _toSVG("basket");
+
+  //*JSON
+
+  String get emptyBasketJSON => _toJSON("empty_basket");
 }
