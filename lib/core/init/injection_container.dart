@@ -18,8 +18,11 @@ Future<void> init() async {
   //?Network
   sl.registerLazySingleton<Dio>(() => DioManager.getDio());
 
+  //?Secure Storage
   final secureStorageManager = SecureStorageManager();
   sl.registerLazySingleton<SecureStorageManager>(() => secureStorageManager);
+
+  // //? BaseController
 
   sl.registerLazySingleton<BaseController>(() => BaseController());
 
